@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="racoussir son lien en quelque seconde">
+    <title>Document</title>
+    <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+<style type="text/css">
+    body{
+        min-width: 100vh;
+        text-align: center;
+        text-transform: capitalize;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+    }
+    h1{
+        
+        font-size: 2.5em;
+        background-color: blue;
+        color: white;
+    }
+    h2{
+        margin: 0%;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        color: white;
+        width: 84vh;
+        background-color: blue;
+        font-size: 1.5em;
+        border:  solid blue;
+    }
+
+    form{
+        height: 300px;
+        width: 85vh;
+        margin: auto;
+        border: 1em solid blue;
+        background-color: white;
+    }
+    input{
+        width: 84vh;
+        height: 50px;
+        border: white;
+    }
+    h3{
+        padding-top: 15px;
+    }
+   
+
+</style>
+</head>
+<body>
+    <h1>RACCOURSIR SON LIEN </h1>
+
+   
+        <form id="post-form" >{% csrf_token %}
+            <h2>Entrez votre lien </h2>
+            <input id="link" type="text" name="link">
+            <h2>clickez sur <button type="submit"> obtenir </button> pour avoir votre lien court</h2>
+            <h3> </h3>
+        </form>
+
+         <script type="text/javascript">
+            $(document).on('submit','#post-form',function(e){
+              e.preventDefault();
+          
+              $.ajax({
+                type:'POST',
+                url:'/create',
+                data:{
+                  link:$('#link').val(),
+                  csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                },
+                success: function(data){
+                    $('h3').html("localhost:8000/"+data)
+                  
+                }
+              });
+            });
+        </script>
+
+    
+</body>
+</html>
